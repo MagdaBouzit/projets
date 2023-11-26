@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const game = {
         width: 500,
         height: 500,
-        color: 'lightgray',
         gameOver: false,
         start: false,
         pause: false
@@ -63,7 +62,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //CANVAS GAME
     canvasDOM.setAttribute('width', game.width);
     canvasDOM.setAttribute('height', game.height);
-    //canvasDOM.style.backgroundColor = game.color;
 
     //BACKGROUND IMAGE
     let image = document.getElementById('background');
@@ -137,11 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
         //RESET CANVAS
         // On vide le Canvas avant de redessiner
         ctx.clearRect(0, 0, game.width, game.height);
-
-        // On dit au contexte que la couleur de remplissage est gris
-        //ctx.fillStyle = game.color;
-        // On rempli le Canvas de gris
-        //ctx.fillRect(0, 0, game.width, game.height);
+        // On remet l'image
         ctx.drawImage(image, 0, 0, game.width, game.height);
         // BALL : On redessine la ball avec sa couleurs et sa nouvelle position
         ctx.beginPath();
@@ -174,13 +168,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 ctx.fillRect(brick.line3.X[i], brick.line3.Y, brick.width, brick.height)
             }
         }
-
         //On redessine le SCORE
         ctx.fillStyle = 'white';
         ctx.font = "15px Arial";
         ctx.fillText(`SCORE : ${brick.broken.length}`, 15, 30);
-
-
     }
 
     // Actualise la position de la BALL et actualise le jeu
@@ -194,7 +185,6 @@ document.addEventListener('DOMContentLoaded', () => {
             displayGame();
             animation = requestAnimationFrame(playGame);
         }
-
     }
 
     // Actualise la position du PADDLE en fonction du keydown
@@ -220,12 +210,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 game.pause = !game.pause
                 playGame()
             }
-
             if (game.start === false) {
                 game.start = !game.start;
                 playGame()
             }
-
         default:
             paddle.direction = 0;;
             break;
@@ -242,11 +230,9 @@ document.addEventListener('DOMContentLoaded', () => {
         if (ball.Y <= (0 + ball.r) || ball.Y >= (game.height - ball.r)) {
             ball.direction.Y *= -1;
         }
-
         if (ball.Y >= (game.height - ball.r)) {
             game.gameOver = true;
         }
-
         if (ball.X <= (0 + ball.r) || ball.X >= (game.width - ball.r)) {
             ball.direction.X *= -1;
         }
@@ -265,6 +251,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }
+        
         // Avec les bricks
         for (let i = 0; i < brick.line1.display.length; i++) {
             if (ball.X >= (brick.line1.X[i] - ball.r) && ball.X <= (brick.line1.X[i] + brick.width + ball.r)) {
@@ -332,7 +319,6 @@ document.addEventListener('DOMContentLoaded', () => {
         ball.direction.Y = 1;
         ball.direction.X = 0;
         paddle.X = game.width / 2 - 25;
-
     }
 
     // CODE PRINCIPAL ------------------------------------------------------------------------------------
